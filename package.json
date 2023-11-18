@@ -1,0 +1,22 @@
+{
+  "name": "js-slotmachine",
+  "version": "1.0.0",
+  "description": "A terminal based javascript game -> deposit money and bet on certain number of lines in slot to win.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withrajatsharma/JS-SlotMachine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/withrajatsharma/JS-SlotMachine/issues"
+  },
+  "homepage": "https://github.com/withrajatsharma/JS-SlotMachine#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
