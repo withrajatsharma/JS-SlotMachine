@@ -72,7 +72,7 @@ const numberOfLinesToBetOn = () => {
         const noOfLine_X = prompt("Enter number of lines to bet on (1-3): ");
         const noOfLines = parseFloat(noOfLine_X);
 
-        if(isNaN(noOfLines) || noOfLines <= 0 || noOfLines >= 3){
+        if(isNaN(noOfLines) || noOfLines <= 0 || noOfLines > 3){
             console.log(`**** invalid lines! try again ****\n`);
         }else {
             return noOfLines;
@@ -88,7 +88,7 @@ const getBet = (balance) => {
 
     while(true){
       
-        const bet_x = prompt("Enter the bet amount per line: ");
+        const bet_x = prompt("Enter the amount to bet on per line: ");
         const bet = parseFloat(bet_x);
 
         if(isNaN(bet) || bet > (balance / noOfLines) || bet <= 0){
@@ -98,11 +98,82 @@ const getBet = (balance) => {
         }
     }
 
+};
+
+
+// function to randomly select symobls for wheel 
+const spin = () => {
+    const symobols = [];
+    for(const [symobol, count] of Object.entries(SymbolsCount)){    // for of loop using to traverse through obj. symoblsCount and pushing that symobl count(A: 2 => pushing A two times.) times in symbols array
+        for (let i = 0; i < count; i++) {
+            symobols.push(symobol);
+                }
+            }
+
+//                                 //                       A
+        const reels = [];          // -> [[A,A,A],[],[]] => A => inside arr represent columns or wheel of slot machine.
+//                                 //          |            A
+//                                             |
+        for(let i = 0; i < COLS; i++){//       |
+            reels.push([]);           //      <-    for 3 columns 3 nested arrays.
+
+            // copying available symbols in reelSymbols through which we can randomly select a symbol to add in wheel-1 and then remove it from available symbols. but it will make all symbols available again for next wheel i.e wheel-2 => also implies that one wheel can have atmost 2 A's 4 B's and so on.
+            const reelSymbols = [...symobols];
+         
+            for(let j = 0; j < ROWS; j++){
+                // for selcting random symbol from array -> random function multiplied by arr length so we get number to that index and putting it in floor method so that we round it down to get value(0.9 => 0) 1 less than arr length.
+                const randomIndex = Math.floor(Math.random() * reelSymbols.length);
+                const selectedSymbol = reelSymbols[randomIndex];
+
+                // pushing that selected symbol in our first wheel and then removing that symbol from array using splice(index, how many to delete from that index).
+                 reels[i].push(selectedSymbol);
+                 reelSymbols.splice(randomIndex,1);
+            }
+        }
+        return reels;
+
+};
+
+
+//                                                                           [A B A]
+//we get reels result in this format =>  [ [A B C] [B D C] [A D C] ]  ==>    [B D D]  => transposing matrix from columns to rows to check for win
+//                                                                           [C C C]
+const transpose = (reels) => {
+        const rows = [];
+
+        for(let i = 0; i < ROWS; i++){
+            rows.push([]);
+            for(let j = 0; j < COLS; j++){
+                rows[i].push(reels[j][i]); //  [ [A B C] [B D C] [A D C] ]  ==> [ [A B A] [B D D] [C C C] ]
+            }
+        }
+        return rows;
+};
+
+
+const printRows = (rows) => {
+    console.log(`\n`);
+    let count=1;
+    for(const row of rows){
+        
+            let rowString = "row-"+count+" -->        ";  //empty string will use it to print row in format like => A | B | D
+                count++;
+            for(const[i,sym] of row.entries() ){
+                rowString += sym;
+                if (i != (row.length-1)) {  // we dont want to put pipe at end of the string
+                        rowString += " | ";
+                }
+            }
+            console.log(rowString);
+    }
+    console.log(`\n`);
 }
 
 
-const spin = () => {
-    
+const getWinnings = (rows, bet, lines) => {
+            let winnings = 0;
+
+            for(let row = 0; )
 }
 
 
@@ -110,3 +181,6 @@ const spin = () => {
 let balance= deposit();
 const noOfLines = numberOfLinesToBetOn();
 const bet = getBet(balance);
+const reels = spin();
+const rows = transpose(reels);
+printRows(rows);
