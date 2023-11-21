@@ -1,6 +1,6 @@
 // we have 3 lines (rows) and 3 columns on which we can bet on and it will only be a win if all 
-// the three symobol of all 3 columns are same in a row and there will be a multiplier mechanism such 
-// that if bet can be placed on line 1 , 1-2 and 1-2-3 (rows) there will be multiplier.
+// the three symobol of all 3 columns are same in a row and there will be a multiplier mechanism 
+// such that if bet can be placed on line 1 , 1-2 and 1-2-3 (rows) there will be multiplier.
 
 // run 'npm init' in terminal (must have node js installed) to include json file so that we can 
 // import package of prompt-sync which will be used to take user input. => npm i prompt-sync
@@ -16,8 +16,9 @@
 // 7. play again?
 
 
-// require is a built in function of node to import from different files => here we are importing prompt-sync which we downloaded using node=> used for taking user input.
-// ...(..)(); => to invoke a function immediately we put paranthesis right after declaration (IIFE)
+// require is a built in function of node to import from different files => here we are importing
+// prompt-sync which we downloaded using node=> used for taking user input.
+// ...(..)(); => to invoke a function immediately we put paranthesis right after declaration (IIFE).
 const prompt = require("prompt-sync")();
 
 
@@ -49,10 +50,12 @@ console.log(`\n`);
         // prompt is used like alert but a little bit different
         const deposit_X = prompt("Enter deposit amount: ");
 
-        // prompt returns string so using parsefloat to convert string to floating point number eg. "11.23"=>11.23 and in case user put anything other than number parsefloat returns Nan.
+        // prompt returns string so using parsefloat to convert string to floating point number 
+        //eg. "11.23"=>11.23 and in case user put anything other than number parsefloat returns Nan.
         const depositAmount = parseFloat(deposit_X);
 
-        // checking if user put a valid number or not => number should be greater than 0 and and not a Nan. and in case number is valid, returning the number and breaking the loop. 
+        // checking if user put a valid number or not => number should be greater than 0 and not
+        // a Nan. and in case number is valid, returning the number and breaking the loop. 
         if(isNaN(depositAmount) || depositAmount <= 0){
             console.log(`**** invalid amount! try again ****\n`);
         }else {
@@ -82,7 +85,9 @@ const numberOfLinesToBetOn = () => {
 }
 
 
-// taking amount of bet to place per line from user and here parameter is used to check if input bet is<= balance/noOfLines (bet will be multiplied by no of lines for multiplier effect), (initially balance is deposit amount).
+// taking amount of bet to place per line from user and here parameter is used to check if input
+// bet is<= balance/noOfLines (bet will be multiplied by no of lines for multiplier effect),
+// (initially balance is deposit amount).
 const getBet = (balance,noOfLines) => {
     console.log(``);
 
@@ -104,28 +109,37 @@ const getBet = (balance,noOfLines) => {
 // function to randomly select symobls for wheel 
 const spin = () => {
     const symobols = [];
-    for(const [symobol, count] of Object.entries(SymbolsCount)){    // for of loop using to traverse through obj. symoblsCount and pushing that symobl count(A: 2 => pushing A two times.) times in symbols array
-        for (let i = 0; i < count; i++) {
+
+// for of loop using to traverse through obj. symoblsCount and pushing that symobl
+// count(A: 2 => pushing A two times.) times in symbols array.
+    for(const [symobol, count] of Object.entries(SymbolsCount)){    
+        for (let i = 0; i < count; i++) {     
             symobols.push(symobol);
                 }
             }
 
 //                                 //                       A
-        const reels = [];          // -> [[A,A,A],[],[]] => A => inside arr represent columns or wheel of slot machine.
-//                                 //          |            A
+        const reels = [];          // -> [[A,A,A],[],[]] => A => inside arr represent columns or 
+//                                 //          |            A       wheel of slot machine.
 //                                             |
         for(let i = 0; i < COLS; i++){//       |
             reels.push([]);           //      <-    for 3 columns 3 nested arrays.
 
-            // copying available symbols in reelSymbols through which we can randomly select a symbol to add in wheel-1 and then remove it from available symbols. but it will make all symbols available again for next wheel i.e wheel-2 => also implies that one wheel can have atmost 2 A's 4 B's and so on.
+            // copying available symbols in reelSymbols through which we can randomly select a
+            // symbol to add in wheel-1 and then remove it from available symbols. but it will 
+            // make all symbols available again for next wheel i.e wheel-2 => also implies that
+            // one wheel can have atmost 2 A's 4 B's and so on.
             const reelSymbols = [...symobols];
          
             for(let j = 0; j < ROWS; j++){
-                // for selcting random symbol from array -> random function multiplied by arr length so we get number to that index and putting it in floor method so that we round it down to get value(0.9 => 0) 1 less than arr length.
+                // for selcting random symbol from array -> random function multiplied by arr
+                // length so we get number to that index and putting it in floor method so that
+                // we round it down to get value(0.9 => 0) 1 less than arr length.
                 const randomIndex = Math.floor(Math.random() * reelSymbols.length);
                 const selectedSymbol = reelSymbols[randomIndex];
 
-                // pushing that selected symbol in our first wheel and then removing that symbol from array using splice(index, how many to delete from that index).
+                // pushing that selected symbol in our first wheel and then removing that symbol
+                // from array using splice(index, how many to delete from that index).
                  reels[i].push(selectedSymbol);
                  reelSymbols.splice(randomIndex,1);
             }
