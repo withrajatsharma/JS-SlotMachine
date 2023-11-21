@@ -83,7 +83,7 @@ const numberOfLinesToBetOn = () => {
 
 
 // taking amount of bet to place per line from user and here parameter is used to check if input bet is<= balance/noOfLines (bet will be multiplied by no of lines for multiplier effect), (initially balance is deposit amount).
-const getBet = (balance) => {
+const getBet = (balance,noOfLines) => {
     console.log(``);
 
     while(true){
@@ -173,14 +173,53 @@ const printRows = (rows) => {
 const getWinnings = (rows, bet, lines) => {
             let winnings = 0;
 
-            for(let row = 0; )
+            for(let row = 0; row < lines; row++){
+                const symbols = rows[row];
+                let allsame = true;
+
+                for(const symbol of symbols){
+                    if (symbol != symbols[0]) {
+                        allsame = false;
+                        break;
+                    }
+                }
+
+                if(allsame){
+                    winnings += bet * SymbolsValue[symbols[0]];
+                }
+
+            }
+            
+            return winnings;
 }
 
 
+const game = () => {
+    let balance= deposit();
 
-let balance= deposit();
-const noOfLines = numberOfLinesToBetOn();
-const bet = getBet(balance);
-const reels = spin();
-const rows = transpose(reels);
-printRows(rows);
+    while(true){
+        console.log(`\nyou have balance of $${balance}`);
+        const noOfLines = numberOfLinesToBetOn();
+        const bet = getBet(balance,noOfLines);
+        balance -= bet*noOfLines;
+        const reels = spin();
+        const rows = transpose(reels);
+        printRows(rows);
+        const winnings = getWinnings(rows, bet, noOfLines);
+        balance += winnings;
+        console.log(`You won, $${winnings.toString()}`);
+
+        if(balance <= 0){
+            console.log(`\nyou ran out of money!`);
+            break;
+        }
+
+        const playagain = prompt("\nDo you want to play again (Y/N) ? : ");
+
+            if (playagain == "n" || playagain == "N") {
+                break;
+            }
+    }
+};
+
+game();
