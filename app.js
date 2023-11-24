@@ -167,7 +167,8 @@ const printRows = (rows) => {
     let count=1;
     for(const row of rows){
         
-            let rowString = "row-"+count+" -->        ";  //empty string will use it to print row in format like => A | B | D
+            let rowString = "row-"+count+" -->        ";  //empty string will use it to print
+                                                          // row in format like => A | B | D
                 count++;
             for(const[i,sym] of row.entries() ){
                 rowString += sym;
