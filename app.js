@@ -201,7 +201,6 @@ const getWinnings = (rows, bet, lines) => {
                 }
 
             }
-            
             return winnings;
 }
 
