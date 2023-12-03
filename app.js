@@ -78,7 +78,6 @@ const numberOfLinesToBetOn = () => {
             return noOfLines;
         }
     }
-
 }
 
 
