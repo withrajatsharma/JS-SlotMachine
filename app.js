@@ -37,6 +37,7 @@ const SymbolsValue = {
     D : 2 
 }
 
+
 // funciton for taking deposit through user
 const deposit = () => {
 console.log(`\n`);
