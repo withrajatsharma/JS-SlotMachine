@@ -114,6 +114,7 @@ const spin = () => {
             symobols.push(symobol);
                 }
             }
+    
 
 //                                 //                       A
         const reels = [];          // -> [[A,A,A],[],[]] => A => inside arr represent columns or 
