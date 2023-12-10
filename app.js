@@ -3,6 +3,7 @@
 // run 'npm init' in terminal (must have node js installed) to include json file so that we can import package of prompt-sync which will be used to take
 // user input. => npm i prompt-sync
 
+
 // ********** TASKS **********
 // 1. deposit money
 // 2. number of lines to bet on
