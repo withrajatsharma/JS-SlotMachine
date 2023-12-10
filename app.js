@@ -63,6 +63,7 @@ console.log(`\n`);
 }
 
 
+
 // taking no. of lines to bet on as input from user, same like deposit amount function.
 const numberOfLinesToBetOn = () => {
     console.log(``);    // for empty line.
