@@ -5,3 +5,4 @@
  
  ----> https://stackblitz.com/edit/stackblitz-starters-3c5nqg?file=index.js&view=editor
  
+:: wait few seconds for ide to setup before you can run command.
